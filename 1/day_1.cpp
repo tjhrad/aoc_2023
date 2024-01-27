@@ -1,4 +1,4 @@
-// Day 1 Advent of Code 2023
+// Advent of Code 2023 Day 1: Part 1
 
 #include <iostream>
 #include <fstream>
@@ -8,7 +8,7 @@
 
 using namespace std;
 
-vector <string> open_text_file(string file_name);
+vector <string> read_text_file(string file_name);
 vector <string> remove_alpha(vector <string> string_vector);
 vector <int> get_first_and_last_int(vector <string> string_vector);
 int sum_integers(vector <int> vector);
@@ -20,7 +20,7 @@ int main()
   vector <string> alpha_removed_vector;
   vector <int> calibration_values_vector;
 
-  file_string_vector = open_text_file(file_name);
+  file_string_vector = read_text_file(file_name);
   alpha_removed_vector = remove_alpha(file_string_vector);
   calibration_values_vector = get_first_and_last_int(alpha_removed_vector);
   
@@ -60,7 +60,7 @@ vector <string> remove_alpha(vector <string> string_vector)
   return alpha_removed_vector;
 }
 
-vector <string> open_text_file(string file_name)
+vector <string> read_text_file(string file_name)
 {
   string text;
   vector <string> file_data;
