@@ -11,6 +11,6 @@ std::vector <int> get_possible_games(std::vector <std::string> f_strings,int n_r
 
 int get_game_number(std::string s);
 
-std::tuple <int,int,int> get_max_rgb(string s);
+std::tuple <int,int,int> get_max_rgb(std::string s);
 
 #endif 

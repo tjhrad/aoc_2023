@@ -1,4 +1,4 @@
-// Advent of Code 2023 Day 1: Part 1
+// Advent of Code 2023 Day 1: Part 2
 
 #include <iostream>
 #include <fstream>
