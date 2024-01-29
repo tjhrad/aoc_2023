@@ -7,7 +7,7 @@
 #include "aoc_tools.h"
 
 
-std::vector <int> get_possible_games(std::vector <std::string> f_strings,int n_red,int n_green,int n_blue);
+std::vector <int> get_game_powers(std::vector <std::string> f_strings,int n_red,int n_green,int n_blue);
 
 int get_game_powers(std::string s);
 

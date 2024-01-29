@@ -11,13 +11,13 @@ int main()
   int number_blue = 14;
 
   std::vector <std::string> file_strings;
-  std::vector <int> possible_games;
+  std::vector <int> game_powers;
  
   file_strings = read_text_file(file_name);
   
-  possible_games = get_game_powers(file_strings, number_red, number_green, number_blue);
+  game_powers = get_game_powers(file_strings, number_red, number_green, number_blue);
 
-  int sum = sum_integers(possible_games);
+  int sum = sum_integers(game_powers);
 
   std::cout << "Sum of possible games: " << sum << "\n";
       
@@ -26,7 +26,7 @@ int main()
 
 std::vector <int> get_game_powers(std::vector <std::string> f_strings,int n_red,int n_green,int n_blue)
 {
-  std::vector <int> possible_games;
+  std::vector <int> game_powers;
   
   
   for (std::string s : f_strings)
@@ -36,10 +36,10 @@ std::vector <int> get_game_powers(std::vector <std::string> f_strings,int n_red,
     std::tie(max_red, max_green, max_blue) = get_max_rgb(s);
     int power = max_red * max_green * max_blue;
 
-    possible_games.push_back(power);
+    game_powers.push_back(power);
   }
 
-  return possible_games;
+  return game_powers;
 }
 
 std::tuple <int,int,int> get_max_rgb(std::string s)
