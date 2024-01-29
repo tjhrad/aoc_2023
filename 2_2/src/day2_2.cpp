@@ -15,7 +15,7 @@ int main()
  
   file_strings = read_text_file(file_name);
   
-  possible_games = get_power(file_strings, number_red, number_green, number_blue);
+  possible_games = get_game_powers(file_strings, number_red, number_green, number_blue);
 
   int sum = sum_integers(possible_games);
 
@@ -24,7 +24,7 @@ int main()
   return 0;
 }
 
-std::vector <int> get_power(std::vector <std::string> f_strings,int n_red,int n_green,int n_blue)
+std::vector <int> get_game_powers(std::vector <std::string> f_strings,int n_red,int n_green,int n_blue)
 {
   std::vector <int> possible_games;
   
