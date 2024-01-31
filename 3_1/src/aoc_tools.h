@@ -18,5 +18,7 @@ std::vector <std::string> read_text_file(std::string file_name);
 
 std::vector<std::vector<int>> subtract_2d_vectors(std::vector<std::vector<int>> vector1, std::vector<std::vector<int>> vector2);
 
+std::vector<std::vector<int>> multiply_2d_vectors(std::vector<std::vector<int>> vector1, std::vector<std::vector<int>> vector2);
+
 #endif
 

@@ -74,3 +74,27 @@ std::vector<std::vector<int>> subtract_2d_vectors(std::vector<std::vector<int>> 
   return result;
 }
 
+std::vector<std::vector<int>> multiply_2d_vectors(std::vector<std::vector<int>> vector1, std::vector<std::vector<int>> vector2)
+{
+  std::vector<std::vector<int>> result;
+
+  if(vector1.size() != vector2.size())
+  {
+    std::cout << vector1.size() << "\n";
+    std::cout << vector2.size() << "\n";
+    throw std::invalid_argument("Vector sizes do not match!!");
+  }
+
+  for ( int i=0; i<vector1.size(); i++ )
+  {
+    std::vector<int> temporary_result;
+    for ( int x=0; x<vector1[i].size(); x++ )
+    {
+      temporary_result.push_back(vector1[i][x]*vector2[i][x]);
+    }
+    result.push_back(temporary_result);
+  }
+
+  return result;
+}
+

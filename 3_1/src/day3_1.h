@@ -14,4 +14,10 @@ std::vector<std::vector<int>> get_codes_matrix(std::vector<std::vector<char>> ch
 
 std::vector<std::vector<std::vector<int>>> split_code_matrices(std::vector<std::vector<int>> codes_matrix);
 
+std::vector<std::vector<int>> code_matrix_to_binary_map(std::vector<std::vector<int>> code_matrix);
+
+std::vector<int> get_valid_codes(std::vector<std::vector<std::vector<int>>> code_matrices, std::vector<std::vector<int>> binary_symbols);
+
+int get_code(std::vector<std::vector<int>> code_matrix);
+
 #endif 
