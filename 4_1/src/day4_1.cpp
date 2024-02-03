@@ -35,23 +35,22 @@ std::vector<int> get_card_values(std::vector<std::string> card_data)
     std::vector<std::string> winning_numbers_str = split_string(raw_winning_numbers, " ");
     std::vector<std::string> numbers_you_have_str = split_string(raw_numbers_you_have, " ");
 
-    std::vector<int> winning_numbers = strings_to_integers(winning_numbers_str);
+    std::vector<int> winning_numbers_vector = strings_to_integers(winning_numbers_str);
     std::vector<int> numbers_you_have = strings_to_integers(numbers_you_have_str);
+
+    std::set<int> winning_numbers(winning_numbers_vector.begin(), winning_numbers_vector.end());
 
     int card_value = 0;
     for (int number : numbers_you_have)
     {
-      for (int winning_number: winning_numbers)
-      {
-        if(number == winning_number)
+      if(winning_numbers.find(number) != winning_numbers.end()){
+        if(card_value == 0)
         {
-          if(card_value == 0)
+          card_value = 1;
+        }
+        else {
           {
-            card_value = 1;
-          }
-          else 
-          {
-            card_value = card_value * 2;
+            card_value = card_value*2;
           }
         }
       }

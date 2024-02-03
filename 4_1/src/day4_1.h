@@ -2,6 +2,7 @@
 #define DAY2_H
 
 #include <iostream>
+#include <set>
 
 #include "aoc_tools.h"
 
