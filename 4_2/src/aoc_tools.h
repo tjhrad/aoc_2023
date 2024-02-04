@@ -8,7 +8,6 @@
 #include <string>
 #include <algorithm>
 
-//using namespace std;
 
 std::vector<int> strings_to_integers(std::vector<std::string> input_strings);
 
