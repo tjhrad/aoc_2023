@@ -1,4 +1,4 @@
-// aoc_tools.cpp
+
 #include "aoc_tools.h"
 
 std::vector<int> strings_to_integers(std::vector<std::string> input_strings)
