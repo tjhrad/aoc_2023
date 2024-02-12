@@ -1,4 +1,4 @@
-// Advent of Code 2023 Day 1: Part 1
+// Advent of Code 2023 Day 3: Part 2
 
 #include "day3_1.h"
 

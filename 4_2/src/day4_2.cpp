@@ -1,4 +1,4 @@
-// Advent of Code 2023 Day 1: Part 2
+// Advent of Code 2023 Day 4: Part 2
 
 #include "day4_2.h"
 
@@ -7,19 +7,19 @@ int main()
   std::string file_name = "./data/input.txt";
   std::vector<std::string> file_data = read_text_file(file_name);
 
-  std::vector<int> card_values = get_card_values(file_data);
+  std::vector<int> card_copies = get_card_copies(file_data);
 
-  int result = sum_integers(card_values);
+  int result = sum_integers(card_copies);
 
-  std::cout << result << "\n";
+  std::cout << "Result: " << result << "\n";
 
   return 0;
 }
 
-std::vector<int> get_card_values(std::vector<std::string> card_data)
+std::vector<int> get_card_copies(std::vector<std::string> card_data)
 {
-  std::vector<int> card_values;
-
+  std::vector<int> number_of_wins_per_card;
+  std::vector<int> number_of_copies_per_card;
 
   for (std::string s : card_data)
   {
@@ -40,23 +40,29 @@ std::vector<int> get_card_values(std::vector<std::string> card_data)
 
     std::set<int> winning_numbers(winning_numbers_vector.begin(), winning_numbers_vector.end());
 
-    int card_value = 0;
+    int number_of_wins = 0;
     for (int number : numbers_you_have)
     {
       if(winning_numbers.find(number) != winning_numbers.end()){
-        if(card_value == 0)
-        {
-          card_value = 1;
-        }
-        else 
-        {
-          card_value = card_value*2;
-        }
+        number_of_wins += 1;
       }
     }
-    card_values.push_back(card_value);
+    number_of_wins_per_card.push_back(number_of_wins);
+    number_of_copies_per_card.push_back(1);
 
   }
-  return card_values;
+
+  for (int i=0; i<number_of_copies_per_card.size(); i++)
+  {
+    int num_copies = number_of_copies_per_card[i];
+    int number_of_wins = number_of_wins_per_card[i];
+
+    for (int x=i; x<i+number_of_wins; x++)
+    {
+      number_of_copies_per_card[x+1] += num_copies;
+    }
+  }
+
+  return number_of_copies_per_card;
 }
 
