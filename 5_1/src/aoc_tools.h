@@ -9,7 +9,7 @@
 #include <algorithm>
 
 
-std::vector<int> strings_to_integers(std::vector<std::string> input_strings);
+/* std::vector<int> strings_to_integers(std::vector<std::string> input_strings);
 
 std::vector<std::vector<char>> strings_to_chars(std::vector<std::string> strings);
 
@@ -22,6 +22,26 @@ std::vector <std::string> read_text_file(std::string file_name);
 std::vector<std::vector<int>> subtract_2d_vectors(std::vector<std::vector<int>> vector1, std::vector<std::vector<int>> vector2);
 
 std::vector<std::vector<int>> multiply_2d_vectors(std::vector<std::vector<int>> vector1, std::vector<std::vector<int>> vector2);
+
+
+ */
+
+std::vector<int> strings_to_integers(const std::vector<std::string>& input_strings);
+
+std::vector<std::vector<char>> strings_to_chars(const std::vector<std::string>& strings);
+
+std::vector <std::string> split_string(std::string string_to_split,std::string delimiter);
+
+int sum_integers(const std::vector<int>& v);
+
+std::vector <std::string> read_text_file(const std::string& file_name);
+
+std::vector<std::vector<int>> subtract_2d_vectors(const std::vector<std::vector<int>>& vector1, const std::vector<std::vector<int>>& vector2);
+
+std::vector<std::vector<int>> multiply_2d_vectors(const std::vector<std::vector<int>>& vector1, const std::vector<std::vector<int>>& vector2);
+
+
+
 
 #endif
 
