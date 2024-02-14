@@ -10,7 +10,8 @@ int main()
 
   std::vector<std::vector<std::string>> split_data = split_file_data(input_file_data);
 
-  std::vector<int> seeds = get_seeds(split_data[0][0]);
+  //TODO: the seed numbers are too big?? I think Throwing out of range error.
+  std::string seeds_string = split_data[0][0];
 
   /* for (std::vector<std::string> v : split_data)
   {
@@ -20,6 +21,7 @@ int main()
     }
     std::cout << std::endl;
   } */
+  std::vector<int> seeds = get_seeds(seeds_string);
 
   split_data.erase(split_data.begin());
 
@@ -40,7 +42,9 @@ int main()
   auto result = std::min_element(std::begin(locations), std::end(locations));//sum_integers(card_copies);
   if (std::end(locations)!=result)
         std::cout << *result << '\n';
-  //std::cout << "Result: " << result << "\n";
+
+/*   int result = 0;
+  std::cout << "Result: " << result << "\n"; */
 
   return 0;
 }
@@ -89,9 +93,13 @@ std::vector<std::vector<std::string>> split_file_data(const std::vector<std::str
 
 std::vector<int> get_seeds(const std::string& data)
 {
+  std::cout << "HERE" << std::endl;
   std::vector<std::string> temp = split_string(data,":");
+  std::cout << "HERE" << std::endl;
   std::vector<std::string> seeds_as_strings = split_string(temp[1]," ");
+  std::cout << "HERE" << std::endl;
   std::vector<int> seeds_as_integers = strings_to_integers(seeds_as_strings);
+  std::cout << "HERE" << std::endl;
   return seeds_as_integers;
 }
 
