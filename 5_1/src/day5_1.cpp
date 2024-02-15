@@ -10,41 +10,19 @@ int main()
 
   std::vector<std::vector<std::string>> split_data = split_file_data(input_file_data);
 
-  //TODO: the seed numbers are too big?? I think Throwing out of range error.
   std::string seeds_string = split_data[0][0];
 
-  /* for (std::vector<std::string> v : split_data)
-  {
-    for (std::string s : v)
-    {
-      std::cout << s << std::endl;
-    }
-    std::cout << std::endl;
-  } */
-  std::vector<int> seeds = get_seeds(seeds_string);
+  std::vector<long long int> seeds = get_seeds(seeds_string);
 
   split_data.erase(split_data.begin());
 
-  std::vector<std::map<int,int>> conversion_maps = get_maps(split_data);
+  std::vector<std::vector<std::vector<long long>>> conversion_maps = get_maps_as_vectors(split_data);
 
-  std::vector<int> locations = get_locations(seeds,conversion_maps);
-
-  /* for(std::map<int,int> m : conversion_maps)
-  {
-    std::map<int, int>::iterator it = m.begin();
-    while (it != m.end()) 
-    {
-        std::cout << "Key: " << it->first<< ", Value: " << it->second << std::endl;
-        ++it;
-    }
-  } */
+  std::vector<long long int> locations = get_all_locations(seeds,conversion_maps);
   
   auto result = std::min_element(std::begin(locations), std::end(locations));//sum_integers(card_copies);
   if (std::end(locations)!=result)
         std::cout << *result << '\n';
-
-/*   int result = 0;
-  std::cout << "Result: " << result << "\n"; */
 
   return 0;
 }
@@ -91,65 +69,46 @@ std::vector<std::vector<std::string>> split_file_data(const std::vector<std::str
   return split_data;
 }
 
-std::vector<int> get_seeds(const std::string& data)
+std::vector<long long int> get_seeds(const std::string& data)
 {
-  std::cout << "HERE" << std::endl;
   std::vector<std::string> temp = split_string(data,":");
-  std::cout << "HERE" << std::endl;
   std::vector<std::string> seeds_as_strings = split_string(temp[1]," ");
-  std::cout << "HERE" << std::endl;
-  std::vector<int> seeds_as_integers = strings_to_integers(seeds_as_strings);
-  std::cout << "HERE" << std::endl;
+  std::vector<long long int> seeds_as_integers = strings_to_long_long_int(seeds_as_strings);
   return seeds_as_integers;
 }
 
-std::vector<std::map<int,int>> get_maps(const std::vector<std::vector<std::string>>& data)
+std::vector<std::vector<std::vector<long long>>> get_maps_as_vectors(const std::vector<std::vector<std::string>>& data)
 {
-  std::vector<std::map<int,int>> maps;
+  std::vector<std::vector<std::vector<long long>>> maps;
 
   for (std::vector<std::string> v : data)
   {
-    std::map<int,int> temporary_map = create_map(v);
-    maps.push_back(temporary_map);
+    std::vector<std::vector<long long>> temporary_vector;
+    for(std::string s : v)
+    {
+      std::vector<std::string> values_as_strings = split_string(s," ");
+      std::vector<long long> temporary_map_long_longs = strings_to_long_long_int(values_as_strings);
+      temporary_vector.push_back(temporary_map_long_longs);
+    }
+    maps.push_back(temporary_vector);
   }
 
   return maps;
 }
 
-std::map<int,int> create_map(const std::vector<std::string>& data)
+std::vector<long long int> get_all_locations(const std::vector<long long int>& seeds, const std::vector<std::vector<std::vector<long long>>>& maps)
 {
-  std::map<int,int> data_map;
+  long long int soil = 0;
+  long long int fertilizer = 0;
+  long long int water = 0;
+  long long int light = 0;
+  long long int temperature = 0;
+  long long int humidity = 0;
+  long long int location = 0;
 
-  for (std::string s : data)
-  {
-    std::vector<std::string> raw_values = split_string(s, " ");
-    std::vector<int> raw_as_integers = strings_to_integers(raw_values);
+  std::vector<long long int> locations;
 
-    int b = raw_as_integers[0];
-    for (int a=raw_as_integers[1]; a<(raw_as_integers[1]+raw_as_integers[2]); a++)
-    {
-      data_map.insert({a,b});
-
-      b++;
-    }
-  }
-
-  return data_map;
-}
-
-std::vector<int> get_locations(const std::vector<int>& seeds, const std::vector<std::map<int,int>>& maps)
-{
-  int soil = 0;
-  int fertilizer = 0;
-  int water = 0;
-  int light = 0;
-  int temperature = 0;
-  int humidity = 0;
-  int location = 0;
-
-  std::vector<int> locations;
-
-  for (int seed : seeds)
+  for (long long int seed : seeds)
   {
     soil = get_value_from_map(seed, maps[0]);
     fertilizer = get_value_from_map(soil, maps[1]);
@@ -165,29 +124,17 @@ std::vector<int> get_locations(const std::vector<int>& seeds, const std::vector<
   return locations;
 }
 
-int get_value_from_map(int k,std::map<int,int> m)
+long long int get_value_from_map(long long int k,const std::vector<std::vector<long long>>& m)
 {
-  int value = k;
-  if(m.count(k))
-  {
-    value = m[k];
-  }
+  long long int value = k;
 
+  for(std::vector<long long> v : m)
+  {
+    if(k >= v[1] && k <= (v[1]+v[2]))
+    {
+      long long int difference = k-v[1];
+      value = v[0] + difference;
+    }
+  }
   return value;
 }
-
-//create_map
-
-//get_seed_numbers
-
-//int convert_number(input_value, map)
-
-//seed_to_soil
-//soil_to_fertilizer
-//fertilizer_to_water
-//water_to_light
-//light_to_temperature
-//temperature_to_humidity
-//humidity_to_location
-
-//TODO: Add a function in aoc_tools to find the lowest number.

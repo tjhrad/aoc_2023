@@ -19,6 +19,24 @@ std::vector<int> strings_to_integers(const std::vector<std::string>& input_strin
   return output_integers;
 }
 
+std::vector<long long int> strings_to_long_long_int(const std::vector<std::string>& input_strings)
+{
+  std::vector<long long int> output_integers;
+
+  for (std::string s : input_strings)
+  {
+    std::string::iterator end_pos = std::remove(s.begin(), s.end(), ' ');
+    s.erase(end_pos, s.end());
+
+    if(s.size() > 0)
+    {
+      output_integers.push_back(std::stoll(s));
+    }
+  }
+
+  return output_integers;
+}
+
 
 std::vector<std::vector<char>> strings_to_chars(const std::vector<std::string>& strings)
 {

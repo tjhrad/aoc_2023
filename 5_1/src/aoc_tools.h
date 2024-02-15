@@ -28,6 +28,8 @@ std::vector<std::vector<int>> multiply_2d_vectors(std::vector<std::vector<int>> 
 
 std::vector<int> strings_to_integers(const std::vector<std::string>& input_strings);
 
+std::vector<long long int> strings_to_long_long_int(const std::vector<std::string>& input_strings);
+
 std::vector<std::vector<char>> strings_to_chars(const std::vector<std::string>& strings);
 
 std::vector <std::string> split_string(std::string string_to_split,std::string delimiter);
