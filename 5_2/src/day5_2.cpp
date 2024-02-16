@@ -1,6 +1,6 @@
-// Advent of Code 2023 Day 5: Part 1
+// Advent of Code 2023 Day 5: Part 2
 
-#include "day5_1.h"
+#include "day5_2.h"
 
 int main()
 {
@@ -73,7 +73,20 @@ std::vector<long long int> get_seeds(const std::string& data)
 {
   std::vector<std::string> temp = split_string(data,":");
   std::vector<std::string> seeds_as_strings = split_string(temp[1]," ");
-  std::vector<long long int> seeds_as_integers = strings_to_long_long_int(seeds_as_strings);
+  std::vector<long long int> temporary_seeds = strings_to_long_long_int(seeds_as_strings);
+
+  std::vector<long long int> seeds_as_integers;
+  for (int x=0; x<temporary_seeds.size(); x += 2)
+  {
+    long long starting_seed_number = temporary_seeds[x];
+    long long starting_seed_range = temporary_seeds[x+1];
+    for (long long i=starting_seed_number; i<(starting_seed_number+starting_seed_range); i++)
+    {
+      seeds_as_integers.push_back(i);
+    }
+
+  }
+
   return seeds_as_integers;
 }
 

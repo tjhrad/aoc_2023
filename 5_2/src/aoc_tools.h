@@ -26,7 +26,5 @@ std::vector<std::vector<int>> subtract_2d_vectors(const std::vector<std::vector<
 std::vector<std::vector<int>> multiply_2d_vectors(const std::vector<std::vector<int>>& vector1, const std::vector<std::vector<int>>& vector2);
 
 
-
-
 #endif
 
