@@ -14,10 +14,12 @@ std::vector<std::vector<std::string>> split_file_data(const std::vector<std::str
 
 std::vector<std::vector<std::vector<long long>>> get_maps_as_vectors(const std::vector<std::vector<std::string>>& data);
 
-std::vector<long long int> get_seeds(const std::string& data);
+std::vector<std::vector<long long>> get_seed_ranges(const std::string& data);
 
-std::vector<long long int> get_all_locations(const std::vector<long long int>& seeds, const std::vector<std::vector<std::vector<long long>>>& maps);
+long long int get_smallest_location_reverse(const std::vector<std::vector<long long>>& seeds, const std::vector<std::vector<std::vector<long long>>>& maps);
 
-long long int get_value_from_map(long long int k,const std::vector<std::vector<long long>>& m);
+long long int get_value_from_map_reverse(long long int k,const std::vector<std::vector<long long>>& m);
+
+long long get_max_from_map(const std::vector<std::vector<long long>>& map);
 
 #endif 

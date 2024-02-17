@@ -12,17 +12,16 @@ int main()
 
   std::string seeds_string = split_data[0][0];
 
-  std::vector<long long int> seeds = get_seeds(seeds_string);
+  std::vector<std::vector<long long>> seed_ranges = get_seed_ranges(seeds_string);
 
   split_data.erase(split_data.begin());
 
   std::vector<std::vector<std::vector<long long>>> conversion_maps = get_maps_as_vectors(split_data);
 
-  std::vector<long long int> locations = get_all_locations(seeds,conversion_maps);
+  long long int smallest_location = get_smallest_location_reverse(seed_ranges,conversion_maps);
   
-  auto result = std::min_element(std::begin(locations), std::end(locations));//sum_integers(card_copies);
-  if (std::end(locations)!=result)
-        std::cout << *result << '\n';
+  auto result = smallest_location;
+  std::cout << result << std::endl;
 
   return 0;
 }
@@ -69,25 +68,25 @@ std::vector<std::vector<std::string>> split_file_data(const std::vector<std::str
   return split_data;
 }
 
-std::vector<long long int> get_seeds(const std::string& data)
+std::vector<std::vector<long long>> get_seed_ranges(const std::string& data)
 {
   std::vector<std::string> temp = split_string(data,":");
   std::vector<std::string> seeds_as_strings = split_string(temp[1]," ");
   std::vector<long long int> temporary_seeds = strings_to_long_long_int(seeds_as_strings);
 
-  std::vector<long long int> seeds_as_integers;
+  std::vector<std::vector<long long>> seed_ranges;
   for (int x=0; x<temporary_seeds.size(); x += 2)
   {
     long long starting_seed_number = temporary_seeds[x];
     long long starting_seed_range = temporary_seeds[x+1];
-    for (long long i=starting_seed_number; i<(starting_seed_number+starting_seed_range); i++)
-    {
-      seeds_as_integers.push_back(i);
-    }
+    long long maximum_seed_number = starting_seed_number + starting_seed_range;
+    std::vector<long long> range;
 
+    range.push_back(starting_seed_number);
+    range.push_back(maximum_seed_number);
+    seed_ranges.push_back(range);
   }
-
-  return seeds_as_integers;
+  return seed_ranges;
 }
 
 std::vector<std::vector<std::vector<long long>>> get_maps_as_vectors(const std::vector<std::vector<std::string>>& data)
@@ -109,7 +108,7 @@ std::vector<std::vector<std::vector<long long>>> get_maps_as_vectors(const std::
   return maps;
 }
 
-std::vector<long long int> get_all_locations(const std::vector<long long int>& seeds, const std::vector<std::vector<std::vector<long long>>>& maps)
+long long int get_smallest_location_reverse(const std::vector<std::vector<long long>>& seed_ranges, const std::vector<std::vector<std::vector<long long>>>& maps)
 {
   long long int soil = 0;
   long long int fertilizer = 0;
@@ -117,36 +116,62 @@ std::vector<long long int> get_all_locations(const std::vector<long long int>& s
   long long int light = 0;
   long long int temperature = 0;
   long long int humidity = 0;
-  long long int location = 0;
+  long long int seed = 0;
 
-  std::vector<long long int> locations;
+  long long int smallest_location=0;
 
-  for (long long int seed : seeds)
+  long long max_location = get_max_from_map(maps[6]);
+
+  for (long long current_location = 0; current_location <= max_location; current_location++)
   {
-    soil = get_value_from_map(seed, maps[0]);
-    fertilizer = get_value_from_map(soil, maps[1]);
-    water = get_value_from_map(fertilizer, maps[2]);
-    light = get_value_from_map(water, maps[3]);
-    temperature = get_value_from_map(light, maps[4]);
-    humidity = get_value_from_map(temperature, maps[5]);
-    location = get_value_from_map(humidity, maps[6]);
+    humidity = get_value_from_map_reverse(current_location, maps[6]);
+    temperature = get_value_from_map_reverse(humidity, maps[5]);
+    light = get_value_from_map_reverse(temperature, maps[4]);
+    water = get_value_from_map_reverse(light, maps[3]);
+    fertilizer = get_value_from_map_reverse(water, maps[2]);
+    soil = get_value_from_map_reverse(fertilizer, maps[1]);
+    seed = get_value_from_map_reverse(soil, maps[0]);
 
-    locations.push_back(location);
+    for (std::vector<long long> range : seed_ranges)
+    {
+      if( seed >= range[0] && seed <= range[1] )
+      {
+        return current_location;
+      }
+    }
   }
 
-  return locations;
+  std::cout << "No best location found :( " << std::endl;
+
+  return smallest_location;
 }
 
-long long int get_value_from_map(long long int k,const std::vector<std::vector<long long>>& m)
+long long get_max_from_map(const std::vector<std::vector<long long>>& map)
+{
+  long long maximum = 0;
+
+  for (std::vector<long long> v: map)
+  {
+    long long max_of_range = v[0]+v[2];
+    if (max_of_range)
+    {
+      maximum = max_of_range;
+    }
+  }
+
+  return maximum;
+}
+
+long long int get_value_from_map_reverse(long long int k,const std::vector<std::vector<long long>>& m)
 {
   long long int value = k;
 
   for(std::vector<long long> v : m)
   {
-    if(k >= v[1] && k <= (v[1]+v[2]))
+    if(k >= v[0] && k < (v[0]+v[2]))
     {
-      long long int difference = k-v[1];
-      value = v[0] + difference;
+      long long int difference = k-v[0];
+      value = v[1] + difference;
     }
   }
   return value;
