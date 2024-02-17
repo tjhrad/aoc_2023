@@ -18,7 +18,7 @@ int main()
 
   std::vector<std::vector<std::vector<long long>>> conversion_maps = get_maps_as_vectors(split_data);
 
-  long long int smallest_location = get_smallest_location_reverse(seed_ranges,conversion_maps);
+  long long smallest_location = get_smallest_location_reverse(seed_ranges,conversion_maps);
   
   auto result = smallest_location;
   std::cout << result << std::endl;
@@ -72,7 +72,7 @@ std::vector<std::vector<long long>> get_seed_ranges(const std::string& data)
 {
   std::vector<std::string> temp = split_string(data,":");
   std::vector<std::string> seeds_as_strings = split_string(temp[1]," ");
-  std::vector<long long int> temporary_seeds = strings_to_long_long_int(seeds_as_strings);
+  std::vector<long long> temporary_seeds = strings_to_long_long_int(seeds_as_strings);
 
   std::vector<std::vector<long long>> seed_ranges;
   for (int x=0; x<temporary_seeds.size(); x += 2)
@@ -108,17 +108,17 @@ std::vector<std::vector<std::vector<long long>>> get_maps_as_vectors(const std::
   return maps;
 }
 
-long long int get_smallest_location_reverse(const std::vector<std::vector<long long>>& seed_ranges, const std::vector<std::vector<std::vector<long long>>>& maps)
+long long get_smallest_location_reverse(const std::vector<std::vector<long long>>& seed_ranges, const std::vector<std::vector<std::vector<long long>>>& maps)
 {
-  long long int soil = 0;
-  long long int fertilizer = 0;
-  long long int water = 0;
-  long long int light = 0;
-  long long int temperature = 0;
-  long long int humidity = 0;
-  long long int seed = 0;
+  long long soil = 0;
+  long long fertilizer = 0;
+  long long water = 0;
+  long long light = 0;
+  long long temperature = 0;
+  long long humidity = 0;
+  long long seed = 0;
 
-  long long int smallest_location=0;
+  long long smallest_location=0;
 
   long long max_location = get_max_from_map(maps[6]);
 
@@ -162,15 +162,15 @@ long long get_max_from_map(const std::vector<std::vector<long long>>& map)
   return maximum;
 }
 
-long long int get_value_from_map_reverse(long long int k,const std::vector<std::vector<long long>>& m)
+long long get_value_from_map_reverse(long long k,const std::vector<std::vector<long long>>& m)
 {
-  long long int value = k;
+  long long value = k;
 
   for(std::vector<long long> v : m)
   {
     if(k >= v[0] && k < (v[0]+v[2]))
     {
-      long long int difference = k-v[0];
+      long long difference = k-v[0];
       value = v[1] + difference;
     }
   }
