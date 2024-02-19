@@ -1,6 +1,26 @@
 
 #include "aoc_tools.h"
 
+std::vector<int> get_integers_from_string(const std::string& input_data)
+{
+  std::stringstream ss;
+  std::vector<int> integers;
+
+  ss << input_data;
+
+  std::string temp_string;
+  int current_integer;
+  while (!ss.eof())
+  {
+    ss >> temp_string;
+
+    if (std::stringstream(temp_string) >> current_integer)
+      integers.push_back(current_integer);
+  }  
+
+  return integers;
+}
+
 std::vector<int> strings_to_integers(const std::vector<std::string>& input_strings)
 {
   std::vector<int> output_integers;

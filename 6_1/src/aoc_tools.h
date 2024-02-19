@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <sstream>
 
 
 std::vector<int> strings_to_integers(const std::vector<std::string>& input_strings);
@@ -25,6 +26,7 @@ std::vector<std::vector<int>> subtract_2d_vectors(const std::vector<std::vector<
 
 std::vector<std::vector<int>> multiply_2d_vectors(const std::vector<std::vector<int>>& vector1, const std::vector<std::vector<int>>& vector2);
 
+std::vector<int> get_integers_from_string(const std::string& input_data);
 
 #endif
 
