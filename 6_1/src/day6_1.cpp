@@ -18,7 +18,7 @@ int main()
   
   auto result = calculate_result(best_possible_distances);
   
-  std::cout << result << std::endl;
+  std::cout << result << '\n';
 
   return 0;
 }
