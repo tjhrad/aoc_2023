@@ -1,6 +1,5 @@
-// Advent of Code 2023 Day 7: Part 2
 
-#include "day7_2.h"
+#include "day8_1.h"
 
 int main()
 {
