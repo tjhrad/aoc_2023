@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <sstream>
 
+std::string remove_nonalpha_characters(std::string s);
 
 std::vector<int> strings_to_integers(const std::vector<std::string>& input_strings);
 

@@ -1,6 +1,23 @@
 
 #include "aoc_tools.h"
 
+std::string remove_nonalpha_characters(std::string s)
+{
+  //std::string ouput_string = "";
+  int j = 0;
+  for (int i = 0; i < s.size(); i++) 
+  {
+      // Store only valid characters
+      if ((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >='a' && s[i] <= 'z'))
+      { 
+          s[j] = s[i];
+          j++;
+      }
+  }
+
+  return s.substr(0, j);
+}
+
 std::vector<int> get_integers_from_string(const std::string& input_data)
 {
   std::stringstream ss;
