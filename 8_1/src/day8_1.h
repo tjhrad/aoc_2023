@@ -6,8 +6,8 @@
 
 #include "aoc_tools.h"
 
-long long calculate_result(const std::vector<std::vector<std::string>>& hands);
-
 std::map<std::string, std::vector<std::string>> get_network_map(const std::vector<std::string>& data);
+
+int get_steps_to_zzz(std::string starting_key, int starting_count, std::string instructions, std::map<std::string, std::vector<std::string>> network_map);
 
 #endif 

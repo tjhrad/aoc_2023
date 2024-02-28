@@ -3,42 +3,40 @@
 
 int main()
 {
-  std::string input_file_path = "./data/test.txt";
+  std::string input_file_path = "./data/input.txt";
 
   std::vector<std::string> input_file_data = read_text_file(input_file_path);
 
-  std::string sequence_of_instructions = input_file_data[0];
+  std::string instructions = input_file_data[0];
 
   std::map<std::string, std::vector<std::string>> network_map = get_network_map(input_file_data);
 
-  /* for (int i=0; i<sequence_of_instructions.size(); i++)
-  {
-    std::cout << sequence_of_instructions[i] << '\n';
-  }
-
-  for (std::string s : input_file_data)
-  {
-    std::cout << s << '\n';
-  } */
-
-  long long result = 0ll;
+  int result = get_steps_to_zzz("AAA", 0, instructions, network_map);
 
   std::cout << result << '\n';
 
   return 0;
 }
 
-long long calculate_result(const std::vector<std::vector<std::string>>& hands)
+int get_steps_to_zzz(std::string starting_key, int starting_count, std::string instructions, std::map<std::string, std::vector<std::string>> network_map)
 {
-  long long result = 0;
-  for (long long i=0; i<hands.size(); i++)
+  int count = starting_count;
+  std::string key = starting_key;
+  for (int i=0; i<instructions.size(); i++)
   {
-    long long rank = i + 1;
-    result = result + (rank*stoll(hands[i][1]));
+    std::vector<std::string> temp_vector = network_map[key];
+    if (instructions[i] == 'L')
+      key = temp_vector[0];
+    else if (instructions[i] == 'R')
+      key = temp_vector[1];
 
+    count ++;
+
+    if (key == "ZZZ")
+      return count;
   }
-  
-  return result;
+
+  return get_steps_to_zzz(key, count, instructions, network_map);
 }
 
 std::map<std::string, std::vector<std::string>> get_network_map(const std::vector<std::string>& data)
