@@ -1,5 +1,5 @@
 
-#include "day8_1.h"
+#include "day8_2.h"
 
 
 int main()
